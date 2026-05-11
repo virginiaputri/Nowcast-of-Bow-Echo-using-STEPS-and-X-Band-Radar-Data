@@ -1,35 +1,58 @@
 # Bow Echo Movement Nowcasting: A STEPS Model & X-Band Radar Approach
 
-This repository contains the analysis scripts and workflows for predicting the movement of **Bow Echoes** (Mesoscale Convective Systems) within the Bandung Basin. This project leverages the **STEPS (Short-Term Ensemble Prediction System)** model and high-resolution **X-Band Radar** data.
+This repository provides a comprehensive Python framework for tracking and predicting the movement of **Bow Echoes** (Mesoscale Convective Systems) in the Bandung Basin. By utilizing high-resolution **X-Band Radar** data and the **STEPS (Short-Term Ensemble Prediction System)** library, this project achieves high-precision short-term weather forecasting.
 
 ## Project Overview
-The complex topography of the Bandung Basin makes it highly susceptible to extreme weather triggered by bow echo phenomena. This research establishes a **Python-based** workflow to evaluate short-term prediction (nowcasting) systems using historical radar data (2020-2022).
+The Bandung Basin's complex topography often leads to localized extreme weather. This project implements a nowcasting pipeline to mitigate risks by identifying and predicting the trajectory of convective systems using a structured 5-step methodology, from raw data ingestion to performance verification.
 
-Key methodologies include:
-1. **Morphological Identification:** Utilizing **Skeletonization** techniques to extract and identify the structural patterns of bow echoes from radar imagery.
-2. **Motion Vectoring:** Implementing the **Lucas-Kanade Algorithm** (within the STEPS framework) to capture the direction and velocity of convective systems with high precision.
+## Key Results & Performance
+- **Detection Accuracy:** High identification reliability with a **POD of 0.685**.
+- **Model Reliability:** Maintains a **Critical Success Index (CSI) > 0.5** for lead times up to 30 minutes.
+- **Optimal Lead Time:** Proven effectiveness in the 10–30 minute window, with a mean position error of only **4.45 km** at the 10-minute mark.
+- **Error Analysis:** Robust verification pipeline calculating RMSE to ensure forecast skill against actual observations.
 
-## Key Findings & Model Performance
-- **Detection Accuracy:** The system achieved a high identification rate with a **Probability of Detection (POD) of 0.685**.
-- **Optimal Lead Time:** Nowcast performance is most effective at a **10–30 minute lead time**, maintaining a Critical Success Index (CSI) > 0.5 and an average position deviation of only **4.45 km** in the first 10 minutes.
-- **Case Study Performance:** Evaluation of the November 9, 2022 case (optimal conditions without attenuation) showed that the STEPS model maintains high accuracy for up to **+30 to 40 minutes**.
-- **Model Decay:** Performance degradation typically occurs after the 40-minute mark due to the complex dynamics of storm cell growth and decay.
+## Execution Flow (Pipeline)
+The analysis is divided into a sequential 5-step pipeline:
 
-## Tech Stack & Libraries
-- **Python:** Primary programming language.
-- **STEPS / Pysteps:** For ensemble and deterministic nowcasting.
-- **Computer Vision:** Image processing for skeletonization and feature extraction.
-- **Data Science Suite:** `Pandas`, `NumPy`, and `Matplotlib` for data manipulation and visualization.
+1. **Observation Plotting:** Ingesting and plotting the raw X-Band radar data to visualize the actual meteorological conditions.
+2. **Skeletonization:** Applying morphological skeletonization directly to the raw data to extract the structural "backbone" of the bow echo.
+3. **Nowcasting:** Utilizing the STEPS framework on the raw data to generate predictive forecast fields (nowcasts) for future time steps.
+4. **Shape Matching:** Aligning and comparing the structural geometries extracted from the observation plots against the nowcast predictions.
+5. **Verification:** Calculating the forecast accuracy (e.g., RMSE) based on the matched shapes to rigorously evaluate the model's performance.
 
 ## Repository Structure
+To match the execution flow, the scripts are organized as follows:
+
 ```text
-├── data/           # (Contains sample_data.csv; raw radar data is restricted)
-├── scripts/        # Python scripts for pre-processing, skeletonization, and STEPS modeling
-├── outputs/        # Visualizations, radar plots, and movement analysis
-├── docs/           # Final Thesis Paper/Publication
-├── requirements.txt# List of Python dependencies
+├── data/           # Sample radar datasets 
+├── scripts/        # Core pipeline scripts
+│   ├── 01_plot_obs.py
+│   ├── 02_skeletonization.py
+│   ├── 03_nowcast_steps.py
+│   ├── 04_shape_match.py
+│   └── 05_verification.py
+├── outputs/        # Generated plots (Observations, Nowcasts, and Matched Shapes)
+├── docs/           # Research paper & Methodology documentation
+├── requirements.txt# Project dependencies
 └── README.md       # Project documentation
 ```
 
+## Technical Implementation
+The implementation is built on a robust Python stack:
+- pysteps: Core engine for motion field estimation and extrapolation forecasting.
+- OpenCV / Scikit-Image: For morphological skeletonization and shape matching.
+- NumPy & Pandas: Multi-dimensional array manipulation of radar reflectivity.
+- Matplotlib: Custom visualization workflows.
+
 ## Getting Started
-(Note: Due to privacy agreements, raw radar datasets are not public. However, the scripts can be tested using the provided sample_data.csv.)
+1. Clone the repository:
+```DAX
+git clone [https://github.com/your-username/repository-name.git](https://github.com/your-username/repository-name.git)
+```
+2. Install dependencies:
+```DAX
+pip install -r requirements.txt
+```
+3. Run the scripts sequentially as numbered in the scripts/ directory.
+
+## Developed as part of a Meteorology research project.
