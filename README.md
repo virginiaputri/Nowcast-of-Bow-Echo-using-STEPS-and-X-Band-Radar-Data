@@ -44,15 +44,4 @@ The implementation is built on a robust Python stack:
 - NumPy & Pandas: Multi-dimensional array manipulation of radar reflectivity.
 - Matplotlib: Custom visualization workflows.
 
-## Getting Started
-1. Clone the repository:
-```DAX
-git clone [https://github.com/your-username/repository-name.git](https://github.com/your-username/repository-name.git)
-```
-2. Install dependencies:
-```DAX
-pip install -r requirements.txt
-```
-3. Run the scripts sequentially as numbered in the scripts/ directory.
-
 ## Developed as part of a Meteorology research project.
